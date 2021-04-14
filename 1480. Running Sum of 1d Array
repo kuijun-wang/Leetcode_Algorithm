@@ -1,0 +1,7 @@
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:        
+        num_dict = {0:0}
+        for i in range(len(nums)):
+            num_dict[i+1] = nums[i] + num_dict[i]
+        return_list = [value for key,value in num_dict.items() if key>0]
+        return return_list
