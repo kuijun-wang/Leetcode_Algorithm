@@ -1,0 +1,9 @@
+def maxProfit(self, prices: List[int]) -> int:
+    small = prices[0]
+    maxprofit = 0
+    for i in prices:
+        if i<small:
+            small = i
+        else:
+            maxprofit = max(i-small, maxprofit)
+    return(maxprofit)
