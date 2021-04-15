@@ -1,0 +1,11 @@
+def sortedArrayToBST(self, nums: List[int]) -> TreeNode:        
+    if len(nums)==1:
+        return TreeNode(nums[0], None, None)
+    if len(nums)==0:
+        return None
+    else:
+        pick_index = len(nums)//2
+        value = nums[pick_index]
+        left = nums[0:pick_index]
+        right = nums[pick_index+1:]
+        return TreeNode(value, self.sortedArrayToBST(left), self.sortedArrayToBST(right))
