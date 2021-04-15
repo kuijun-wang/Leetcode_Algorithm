@@ -1,0 +1,16 @@
+def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+    def area(x,y, grid):
+        if x<0 or y<0 or x>=len(grid) or y>=len(grid[0]):
+            return 0
+        if grid[x][y] == 0:
+            return 0
+                    
+        grid[x][y] = 0
+        count1 = area(x+1,y,grid)
+        count2 = area(x,y+1,grid)
+        count3 = area(x-1,y,grid)
+        count4 = area(x,y-1,grid)
+        return count1+count2+count3+count4+1
+    
+    L = [area(i,j,grid) for i in range(len(grid)) for j in range(len(grid[0]))]
+    return max(L)
