@@ -1,0 +1,8 @@
+def maxDepth(self, root: 'Node') -> int:
+    if root == None:
+        return 0
+    if root.children == None or len(root.children)==0:
+        return 1
+    else:
+        L = [self.maxDepth(i) for i in root.children]
+        return max(L) + 1
