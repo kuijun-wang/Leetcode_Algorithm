@@ -1,0 +1,24 @@
+def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    L = len(isConnected)
+    for i in range(len(isConnected)):
+        isConnected[i][i] = 0
+    
+    def color(point, connect_map):
+        if sum(connect_map[point])==0:
+            return 0
+        
+        have_connect = [i for i in range(len(connect_map[point])) if connect_map[point][i]==1]
+        connect_map[point] = [0]*L
+        for i in have_connect:
+            color(i, connect_map)
+            connect_map[i][point] = 0
+    
+    count = 0
+    for i in range(L):
+        if sum(isConnected[i])==0:
+            count += 1 # no connect
+    for i in range(L):
+        if sum(isConnected[i])!=0:
+            color(i,isConnected)
+            count += 1
+    return(count)
