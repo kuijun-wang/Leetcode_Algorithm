@@ -31,3 +31,22 @@ def partitionLabels(self, S: str) -> List[int]:
             end = max(l_list[i][1],end)
     return_index.append(end-start+1)
     return return_index
+
+
+# Another way:
+def partitionLabels(self, S: str) -> List[int]:
+    l_dict = {letter:index for index, letter in enumerate(S)}
+    
+    end = l_dict[S[0]]
+    output_list = []
+    last_break = 0
+    for i in range(len(S)):
+        if i>end:
+            output_list.append(i - last_break)
+            last_break = i
+            end = l_dict[S[i]]
+        else:
+            end = max(end, l_dict[S[i]])
+    if last_break != len(S):
+        output_list.append(len(S) - last_break)
+    return output_list
