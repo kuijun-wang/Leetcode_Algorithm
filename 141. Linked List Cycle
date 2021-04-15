@@ -1,0 +1,23 @@
+def hasCycle(self, head: ListNode) -> bool:
+    save_dict = {}
+    
+    while True:
+        if head == None:
+            return False
+        if head in save_dict:
+            return True
+        else:
+            save_dict[head]=1
+            head = head.next
+            
+def hasCycle(self, head: ListNode) -> bool:
+    quick = head
+    slow = head
+    while True:
+        if quick == None or quick.next == None:
+            return False
+        quick = quick.next.next
+        slow = slow.next
+            
+        if quick == slow:
+            return True
