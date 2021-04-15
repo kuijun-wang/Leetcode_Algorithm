@@ -1,0 +1,33 @@
+def partitionLabels(self, S: str) -> List[int]:
+    l_dict = {}
+    def add(l,index):
+        if l in l_dict:
+            if index<l_dict[l][0]:
+                l_dict[l][0] = index
+            if index>l_dict[l][1]:
+                l_dict[l][1] = index
+        else:
+            l_dict[l] = [index,index]
+    S = [i for i in S]
+    for i in range(len(S)):
+        add(S[i],i)
+    l_list = [value for key,value in l_dict.items()]
+    
+    def k(element):
+        return (element[0], -element[1])
+    l_list.sort(key = k)
+    
+    count = 0
+    start = l_list[0][0]
+    end = l_list[0][-1]
+    return_index = []
+    for i in range(len(l_list)):    
+        if l_list[i][0]>end:
+            return_index.append(end-start+1)
+            count += 1
+            start = l_list[i][0]
+            end = l_list[i][-1]
+        else:
+            end = max(l_list[i][1],end)
+    return_index.append(end-start+1)
+    return return_index
