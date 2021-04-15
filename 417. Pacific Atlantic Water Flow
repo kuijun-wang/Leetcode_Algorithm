@@ -1,0 +1,31 @@
+def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+    def dfs(x,y,grid,h):
+        if x>=m or y>=n or x<0 or y<0:
+            return 0
+        if grid[x][y] == 1:
+            return 0
+        if heights[x][y]<h:
+            return 0
+        
+        grid[x][y] = 1
+        h = heights[x][y]
+        
+        dfs(x+1,y,grid,h)
+        dfs(x-1,y,grid,h)
+        dfs(x,y+1,grid,h)
+        dfs(x,y-1,grid,h)
+      
+    m = len(heights)
+    n = len(heights[0])
+    grid1 = [[0]*n for i in range(m)]
+    for i in range(m):
+        for j in range(n):
+            if i == 0 or j==0:
+                dfs(i,j,grid1,0)
+    grid2 = [[0]*n for i in range(m)]
+    for i in range(m):
+        for j in range(n):
+            if i == m-1 or j==n-1:
+                dfs(i,j,grid2,0)
+    return_list = [[i,j] for i in range(m) for j in range(n) if grid1[i][j]==1 and grid2[i][j]==1 ]
+    return(return_list)
