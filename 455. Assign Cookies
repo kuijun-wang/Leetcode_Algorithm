@@ -1,0 +1,13 @@
+def findContentChildren(self, g: List[int], s: List[int]) -> int:
+    g.sort(reverse=True)
+    s.sort(reverse=True)
+    
+    count = 0
+    children = 0
+    cookie = 0
+    while children<len(g) and cookie<len(s):
+        if s[cookie]>=g[children]:
+            count += 1
+            cookie += 1
+        children += 1
+    return(count)
