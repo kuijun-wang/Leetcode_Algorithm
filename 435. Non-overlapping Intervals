@@ -1,0 +1,13 @@
+def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+    def k(time):
+        return(time[1])
+    
+    intervals.sort(key = k)
+    
+    count = 0
+    endtime = -2*10000
+    for time in intervals:
+        if time[0]>=endtime:
+            endtime = time[1]
+            count += 1
+    return len(intervals) - count
