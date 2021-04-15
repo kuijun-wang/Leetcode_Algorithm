@@ -1,0 +1,16 @@
+def maxProfit(self, prices: List[int]) -> int:
+    profit = 0
+    buy_price = prices[0]
+    sell_price = prices[0]
+    earn = 0
+    for i in prices:
+        if i>= sell_price:
+            sell_price = i
+            earn = i - buy_price
+        else:
+            buy_price = i
+            sell_price = i
+            profit += earn
+            earn = 0
+    profit += earn
+    return profit
