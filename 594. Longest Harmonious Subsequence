@@ -1,0 +1,12 @@
+def findLHS(self, nums: List[int]) -> int:
+    max_len = 0
+    num_dict = {}
+    for i in nums:
+        if i in num_dict:
+            num_dict[i] += 1
+        else:
+            num_dict[i] = 1
+    for i in num_dict:
+        if i+1 in num_dict:
+            max_len = max(max_len, num_dict[i] + num_dict[i+1])
+    return max_len               
