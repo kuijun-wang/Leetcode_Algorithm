@@ -1,0 +1,18 @@
+    def countSubstrings(self, s: str) -> int:
+        def count(left, right):
+            count = 0
+            while left>=0 and right < len(s):
+                if s[left] == s[right]:
+                    count += 1
+                    left -= 1
+                    right += 1
+                else:
+                    return count
+            return count
+        
+        total = 0
+        for i in range(len(s)):
+            total += count(i, i+1)
+            total += count(i, i+2)
+            total += 1
+        return total
