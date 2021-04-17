@@ -1,0 +1,26 @@
+def isPalindrome(self, x: int) -> bool:
+    s = [i for i in str(x)]
+    left = 0
+    right = len(s) - 1
+    while left < right:
+        if s[left] == s[right]:
+            left += 1
+            right -= 1
+        else:
+            return False
+    return True
+   
+# Another answer:
+
+def isPalindrome(self, x: int) -> bool:
+    if x<0:
+        return False
+    x0 = x
+    num = 0
+    while x>0:
+        num = num*10 + x%10
+        x = x//10
+    if num == x0 or x0 == num/10:
+        return True
+    else:
+        return False
