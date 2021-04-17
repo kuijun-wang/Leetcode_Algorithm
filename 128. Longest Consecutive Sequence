@@ -1,43 +1,14 @@
 def longestConsecutive(self, nums: List[int]) -> int:
-    num_dict = {}
-    for i in nums:
-        if i not in num_dict:
-            num_dict[i] = 1
-    
+    num_dict = set(nums)
+            
     max_len = 0
-    num_dict = sorted(num_dict)
-    
-    for i in num_dict:
-        try:
-            if i != last + 1:
-                max_len = max(max_len, count)
-                count = 1
-            else:
-                count += 1
-        except:
-            count = 1
-        last = i
+    for num in num_dict:
+        count = 1
+        if num - 1 in num_dict:
+            continue
+        current_num = num + 1
+        while current_num in num_dict:
+            current_num += 1
+            count += 1
         max_len = max(max_len, count)
     return max_len
-    
-    
-    
-    
-def longestConsecutive(self, nums: List[int]) -> int:
-        num_dict = {}
-        for i in nums:
-            if i not in num_dict:
-                num_dict[i] = 1
-                
-        max_len = 0
-        color = {}
-        for num in num_dict:
-            color[num] = 1
-            if num + 1 in num_dict:
-                count = 2
-                current_num = num + 2
-                while current_num in num_dict:
-                    current_num += 1
-                    count += 1
-            max_len = max(max_len, count)
-        return max_len
