@@ -1,0 +1,17 @@
+def diameterOfBinaryTree(self, root: TreeNode) -> int:
+    final = 0
+    def longest(root):
+        nonlocal final
+        if root == None:
+            return 0
+
+        left = longest(root.left)
+        right = longest(root.right)
+        final = max(final, left + right)
+        return max(left, right) + 1
+    
+    longest(root)
+    if root == None:
+        return 0
+    else:
+        return final
