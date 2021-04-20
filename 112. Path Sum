@@ -1,0 +1,19 @@
+def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+    if root == None:
+        return False
+    
+    def PathSum(root):
+        if root == None:
+            return [0]
+        left = PathSum(root.left)
+        right = PathSum(root.right)
+        if root.left == None:
+            return [i + root.val for i in right] 
+        if root.right == None:
+            return [i + root.val for i in left] 
+        return [i + root.val for i in left + right] 
+    
+    if targetSum in PathSum(root):
+        return True
+    else:
+        return False
