@@ -1,0 +1,11 @@
+    def convertToTitle(self, columnNumber: int) -> str:
+        col_list = list(string.ascii_uppercase)
+        result = ""
+        while columnNumber//26!=0 or columnNumber%26!=0:
+            yu = columnNumber%26
+            result = col_list[yu-1] + result
+            columnNumber = columnNumber//26
+            if yu ==0:
+                columnNumber -= 1
+            
+        return result
