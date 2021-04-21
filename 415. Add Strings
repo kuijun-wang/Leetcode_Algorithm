@@ -1,0 +1,31 @@
+def addStrings(self, num1: str, num2: str) -> str:
+    num1 = [int(i) for i in num1]
+    num2 = [int(i) for i in num2]
+    idx1 = len(num1)-1
+    idx2 = len(num2)-1
+    result = ""
+    jinwei = 0
+    while idx1 >=0 and idx2>=0:
+        he = num1[idx1] + num2[idx2] + jinwei
+        if he >=10:
+            jinwei = 1
+            result = str(he%10) + result
+        else:
+            jinwei = 0
+            result = str(he) + result
+        idx1 -= 1
+        idx2 -= 1
+    if idx1==idx2==-1:
+        if jinwei == 1:
+            result = "1" + result
+        return result
+    if idx1 >=0:
+        more = num1[:idx1+1]
+    if idx2 >=0:
+        more = num2[:idx2+1]
+    more[-1] += jinwei
+    it = 0
+    for i in more:
+        it = it*10 + i
+    result = str(it) + result
+    return result
