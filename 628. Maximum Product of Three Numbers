@@ -1,0 +1,39 @@
+def maximumProduct(self, nums: List[int]) -> int:
+    nums = sorted(nums)
+    optionA = nums[-1] * nums[-2] * nums[-3]
+    if nums[1]>=0:
+        return optionA
+    else:
+        optionB = nums[-1] * nums[0] * nums[1]
+        return max(optionA, optionB)
+
+#Another method:
+def maximumProduct(self, nums: List[int]) -> int:
+    def find2small(nums):
+        small = [float("inf"), float("inf")]
+        for i in nums:
+            if i < small[0]:
+                small = [i, small[0]]
+            elif i<small[1]:
+                small = [small[0], i]
+        return small
+        
+    def find3big(nums):
+        big = [float("-inf"), float("-inf"), float("-inf")]
+        for i in nums:
+            if i>big[2]:
+                big = [big[1], big[2], i]
+            elif i>big[1]:
+                big = [big[1], i, big[2]]
+            elif i>big[0]:
+                big = [i, big[1], big[2]]
+        return big
+    
+    small = find2small(nums)
+    big = find3big(nums)
+    optionA = big[0] * big[1] * big[2]
+    if small[1]>=0:
+        return optionA
+    else:
+        optionB = big[2] * small[0] * small[1]
+        return max(optionA, optionB)
