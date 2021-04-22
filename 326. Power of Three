@@ -1,0 +1,7 @@
+def isPowerOfThree(self, n: int) -> bool:
+    if n<=0:
+        return False
+    i = 1
+    while n>i:
+        i = i*3
+    return n == i
