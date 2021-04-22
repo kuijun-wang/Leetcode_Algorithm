@@ -1,0 +1,12 @@
+def productExceptSelf(self, nums: List[int]) -> List[int]:
+    listA = [1]*len(nums)
+    listB = [1]*len(nums)
+    a = 1
+    for i in range(1, len(nums)):
+        a = a * nums[i-1]
+        listA[i] = a
+    b = 1
+    for i in range(1,len(nums)):
+        b = b * nums[-i]
+        listB[-i-1] = b
+    return [listA[i] * listB[i] for i in range(len(nums))]
