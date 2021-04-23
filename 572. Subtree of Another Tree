@@ -1,0 +1,15 @@
+def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+    if s == None:
+        return False
+    
+    def equal(s,t):
+        if s == None and t == None:
+            return True
+        elif s == None or t == None:
+            return False
+        return equal(s.left, t.left) and equal(s.right, t.right) and s.val == t.val        
+    
+    if equal(s,t) == True:
+        return True
+    
+    return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
