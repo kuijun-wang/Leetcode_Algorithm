@@ -1,0 +1,9 @@
+    def isSymmetric(self, root: TreeNode) -> bool:
+        def oppo(s,t):
+            if s == None and t== None:
+                return True
+            elif s == None or t == None:
+                return False
+            return oppo(s.left, t.right) and oppo(s.right, t.left) and s.val == t.val
+        
+        return oppo(root.left, root.right)
