@@ -1,0 +1,23 @@
+def longestUnivaluePath(self, root: TreeNode) -> int:
+    max_path = 0
+    if root == None:
+        return 0
+    
+    def path(root):
+        nonlocal max_path
+        if root == None:
+            return 0
+        
+        left = path(root.left)
+        right = path(root.right)
+        left_output = right_output = 0
+        
+        if root.left and root.left.val == root.val:
+            left_output = left + 1
+        if root.right and root.right.val == root.val:
+            right_output = right + 1
+        max_path = max(max_path, left_output + right_output)
+        return max(left_output, right_output)
+        
+    path(root)
+    return max_path
