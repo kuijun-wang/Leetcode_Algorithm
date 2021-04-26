@@ -1,0 +1,8 @@
+def bfs(root_list):
+    
+    next_root_list = [i.left for i in root_list if i.left!=None] + [i.right for i in root_list if i.right!=None]
+    if len(next_root_list) == 0:
+        return root_list[0].val
+    return bfs(next_root_list)
+
+return bfs([root])
