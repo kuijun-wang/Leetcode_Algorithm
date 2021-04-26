@@ -1,0 +1,24 @@
+def isValid(self, s: str) -> bool:
+    while "()" in s or "{}" in s or '[]' in s:
+        s = s.replace("()", "").replace('{}', "").replace('[]', "")
+    return s == ''
+    
+# Another answer:
+
+def isValid(self, s: str) -> bool:
+    save = []
+    mapping = {")": "(", "}": "{", "]": "["}
+    
+    for i in s:
+        if i in mapping:
+            if save:
+                pre = save.pop()
+            else:
+                return False
+            
+            if mapping[i]!=pre:
+                return False
+        else:
+            save.append(i)
+    if save==[]:
+        return True
