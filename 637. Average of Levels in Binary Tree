@@ -1,0 +1,13 @@
+    def averageOfLevels(self, root: TreeNode) -> List[float]:
+        avg = []
+        def bfs(root_list):
+            nonlocal avg
+            value = [i.val for i in root_list]
+            avg.append(sum(value)/len(value))
+            next_root_list = [i.left for i in root_list if i.left!=None] + [i.right for i in root_list if i.right!=None]
+            if len(next_root_list) == 0:
+                return 0
+            bfs(next_root_list)
+        
+        bfs([root])
+        return avg
