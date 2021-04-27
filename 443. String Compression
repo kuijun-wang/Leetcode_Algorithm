@@ -1,0 +1,16 @@
+def compress(self, chars: List[str]) -> int:
+    if len(chars)<=1:
+        return len(chars)
+    write = 0
+    cur_idx = 0
+    count = 0
+    for i in range(len(chars)):
+        if i == len(chars)-1 or chars[i] != chars[i+1]:
+            chars[write] = chars[cur_idx]
+            write += 1
+            if i > cur_idx:
+                for digit in str(i - cur_idx + 1):
+                    chars[write] = digit
+                    write += 1
+            cur_idx = i + 1
+    return write
