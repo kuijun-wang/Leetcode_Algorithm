@@ -1,0 +1,57 @@
+# Time Limit Exceeded
+  def findAnagrams(self, s: str, p: str) -> List[int]:
+        def str2dict(s):
+            s_dict = {}
+            for i in s:
+                if i in s_dict:
+                    s_dict[i] += 1
+                else:
+                    s_dict[i] = 1
+            return s_dict
+        
+        def valid(idx,s,p):
+            length = len(p)
+            if idx+length>len(s):
+                return False
+            string = s[idx:idx + length]
+            return str2dict(string) == str2dict(p)
+            
+        result = [i for i in range(len(s)) if valid(i,s,p)]
+        return result
+
+# Correct
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        def str2dict(s):
+            s_dict = {}
+            for i in s:
+                if i in s_dict:
+                    s_dict[i] += 1
+                else:
+                    s_dict[i] = 1
+            return s_dict
+        
+        def add_in(i,s_dict):
+            if i in s_dict:
+                s_dict[i] += 1
+            else:
+                s_dict[i] = 1
+        
+        def delete_in(i,s_dict):
+            if s_dict[i] == 1:
+                del s_dict[i]
+            else:
+                s_dict[i] -= 1
+                
+        if len(s)<len(p):
+            return []
+        result = []
+        p_dict = str2dict(p)
+        s_dict = {}
+        for i in range(len(s)):
+            if i>=len(p):
+                delete_in(s[i-len(p)],s_dict)
+            add_in(s[i],s_dict)
+            if s_dict == p_dict:
+                result.append(i-len(p)+1)
+            
+        return result
