@@ -1,0 +1,25 @@
+class Solution:
+    def maxFrequency(self, nums: List[int], k: int) -> int:
+        if len(nums)<2:
+            return 1
+        left = 0
+        right = 1
+        nums.sort()
+        last_right = left
+        ans = 1
+        need_k = 0
+        
+        while left <= right and right< len(nums):
+            while right< len(nums):
+                if nums[right] != nums[last_right]:
+                    need_k += (right - left) * (nums[right] - nums[last_right])
+                
+                last_right = right
+                if need_k > k:
+                    need_k -= nums[right] - nums[left]
+                    left += 1
+                    break
+                ans = max(ans, right - left + 1)
+                right += 1
+             
+        return ans
