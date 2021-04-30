@@ -1,0 +1,34 @@
+def inorderTraversal(self, root: TreeNode) -> List[int]:
+    L = [root]
+    ans = []
+    if root == None:
+        return ans
+
+    while L:
+        i = L.pop(0)
+        if type(i) is int:
+            ans.append(i)
+        else:
+            if i.right != None:
+                L.insert(0, i.right) 
+            L.insert(0, i.val) 
+            if i.left != None:
+                L.insert(0, i.left)
+    return ans
+
+# Using DFS
+def inorderTraversal(self, root: TreeNode) -> List[int]:
+    ans = []
+    if root == None:
+        return ans
+
+    def dfs(root):
+        if root == None:
+            return 0
+
+        dfs(root.left)
+        ans.append(root.val)
+        dfs(root.right)
+        
+    dfs(root)
+    return ans
