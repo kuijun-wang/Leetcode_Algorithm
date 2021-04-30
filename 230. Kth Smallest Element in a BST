@@ -1,0 +1,17 @@
+def kthSmallest(self, root: TreeNode, k: int) -> int:
+    if root == None:
+        return None
+
+    ans = []
+    stack = [root]
+    while len(ans)<k:
+        i = stack.pop(0)
+        if type(i) != int:
+            if i.right != None:
+                stack.insert(0, i.right) 
+            stack.insert(0, i.val)
+            if i.left != None:
+                stack.insert(0, i.left) 
+        else:
+            ans.append(i)
+    return ans[k-1]
