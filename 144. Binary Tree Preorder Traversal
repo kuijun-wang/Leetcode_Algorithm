@@ -1,0 +1,14 @@
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        L = [root]
+        ans = []
+        if root == None:
+            return ans
+        
+        while L:
+            i = L.pop(0)
+            ans.append(i.val)
+            if i.right != None:
+                L.insert(0, i.right) 
+            if i.left != None:
+                L.insert(0, i.left) 
+        return ans
