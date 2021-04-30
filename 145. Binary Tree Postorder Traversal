@@ -1,0 +1,15 @@
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        ans = []
+        if root == None:
+            return ans
+        
+        def dfs(root):
+            if root == None:
+                return 0
+            
+            dfs(root.left)
+            dfs(root.right)
+            ans.append(root.val)
+        dfs(root)
+        return ans
