@@ -1,0 +1,41 @@
+def minWindow(self, s: str, t: str) -> str:
+    #t to dict
+    t_dict = {}
+    for i in t:
+        if i in t_dict:
+            t_dict[i] += 1
+        else:
+            t_dict[i] = 1
+    
+    required = len(t_dict) #num of required unique letter
+    left = 0
+    right = 0
+    formed = 0  #num of unique letter meet count require
+    window_counts = {}
+    ans = float("inf"), None, None #length, left, right
+    
+    while right<len(s):
+        i = s[right]
+        # put right in window_counts
+        if i in window_counts:
+            window_counts[i] += 1
+        else:
+            window_counts[i] = 1
+        
+        if i in t_dict and window_counts[i] == t_dict[i]:
+            formed += 1
+        
+        while left<= right and formed == required:
+            i  = s[left]
+            if right - left + 1 < ans[0]:
+                ans = (right - left + 1, left, right)
+            # remove left from window_counts
+            window_counts[i] -= 1
+            if i in t_dict and window_counts[i] < t_dict[i]:
+                formed -= 1
+            
+            left += 1
+        
+        right += 1
+    return "" if ans[0] == float("inf") else s[ans[1] : ans[2] + 1]
+        
