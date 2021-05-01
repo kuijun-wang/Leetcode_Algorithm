@@ -1,0 +1,44 @@
+def sortedListToBST(self, head: ListNode) -> TreeNode:
+    nums = []
+    while head != None:
+        nums.append(head.val)
+        head = head.next
+        
+    def sortedArrayToBST(nums): 
+        if len(nums) == 0:
+            return None
+        if len(nums) == 1:
+            return TreeNode(nums[0], None, None)
+
+        mid_idx = len(nums)//2
+        left_list = nums[0:mid_idx]
+        right_list = nums[mid_idx+1:]
+        left = sortedArrayToBST(left_list)
+        right = sortedArrayToBST(right_list)
+        return TreeNode(nums[mid_idx], left, right)
+    return sortedArrayToBST(nums)
+
+
+
+# Another ans:
+def findMid(self, head):
+    slow = head
+    fast = head
+    pre = None
+    while fast != None and fast.next != None:
+        pre = slow
+        slow = slow.next
+        fast = fast.next.next
+    if pre:
+        pre.next = None
+    return slow
+
+def sortedListToBST(self, head: ListNode) -> TreeNode:
+    if head == None:
+        return None
+
+    mid = self.findMid(head)
+    if head == mid:
+        return TreeNode(mid.val)
+    else:
+        return TreeNode(mid.val, self.sortedListToBST(head), self.sortedListToBST(mid.next))
