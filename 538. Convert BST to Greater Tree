@@ -1,0 +1,16 @@
+    def convertBST(self, root: TreeNode) -> TreeNode:
+        if root == None:
+            return root
+        add = 0
+        def dfs(root):
+            nonlocal add
+            if root == None:
+                return 0
+            if root.right!= None:
+                dfs(root.right)
+            add += root.val
+            root.val = add
+            if root.left != None:
+                dfs(root.left)
+        dfs(root)
+        return root
