@@ -1,0 +1,16 @@
+def findTarget(self, root: TreeNode, k: int) -> bool:
+    tree_dict = {}
+    stack = [root]
+    while stack:
+        i = stack.pop()
+        if i == None:
+            continue
+        target = k - i.val
+        if target!= i.val and target in tree_dict:
+            return True
+        else:
+            tree_dict[i.val] = 1
+            stack.append(i.left)
+            stack.append(i.right)
+
+    return False
