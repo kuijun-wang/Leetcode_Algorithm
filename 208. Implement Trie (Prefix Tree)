@@ -1,3 +1,5 @@
+# Hashmap:
+
 class Trie:
 
     def __init__(self):
@@ -30,3 +32,53 @@ class Trie:
         Returns if there is any word in the trie that starts with the given prefix.
         """
         return prefix in self.s_dict
+
+
+# TrieNode:
+class TrieNode:
+    def __init__(self):
+        self.word = False
+        self.children = {}
+
+class Trie:
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.trie = TrieNode()
+
+
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        cur = self.trie
+        for i in word:
+            if i not in cur.children:
+                cur.children[i] = TrieNode()
+            cur = cur.children[i]
+        cur.word = True
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        cur = self.trie
+        for i in word:
+            if i not in cur.children:
+                return False
+            else:
+                cur = cur.children[i]
+        return cur.word
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        cur = self.trie
+        for i in prefix:
+            if i not in cur.children:
+                return False
+            else:
+                cur = cur.children[i]
+        return True
