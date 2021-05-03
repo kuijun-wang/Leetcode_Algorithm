@@ -1,0 +1,46 @@
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.L = []
+
+    def push(self, val: int) -> None:
+        self.L.append(val)
+
+    def pop(self) -> None:
+        self.L.pop()
+
+    def top(self) -> int:
+        return self.L[-1]
+
+    def getMin(self) -> int:
+        return min(self.L)
+
+
+# Another ans:
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.L = []
+
+    def push(self, val: int) -> None:
+        if self.L:
+            curmin = min(val, self.L[-1][1])
+            self.L.append([val,curmin])
+        else:
+            self.L.append([val,val])
+        
+    def pop(self) -> None:
+        self.L.pop()
+
+    def top(self) -> int:
+        return self.L[-1][0]
+
+    def getMin(self) -> int:
+        return self.L[-1][1]
