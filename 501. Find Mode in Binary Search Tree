@@ -1,0 +1,62 @@
+# 1. using hashmap
+def findMode(self, root: TreeNode) -> List[int]:
+    num_dict = {}
+    def dfs(root):
+        if root == None:
+            return
+        if root.val in num_dict:
+            num_dict[root.val] += 1
+        else:
+            num_dict[root.val] = 1
+        dfs(root.left)
+        dfs(root.right)
+    
+    cur_max = []
+    max_count = 0
+    dfs(root)
+    for i in num_dict:
+        if num_dict[i] > max_count:
+            max_count = num_dict[i]
+            cur_max = [i]
+        elif num_dict[i] == max_count:
+            cur_max.append(i)
+    
+    return cur_max
+
+
+
+
+
+# 2.inorder
+
+def findMode(self, root: TreeNode) -> List[int]:
+    stack = [root]
+    ans = []
+    count = 1
+    max_count = 0
+    cur_max = []
+    while stack:
+        i = stack.pop(0)
+        if i == None:
+            continue
+        if type (i) is int:
+            if ans:
+                if i == ans[-1]:
+                    count += 1
+                else:
+                    count = 1
+                if count > max_count:
+                    cur_max = [i]
+                    max_count = count
+                elif count == max_count:
+                    cur_max.append(i)
+            else:
+                cur_max = [i]
+                max_count = count
+            ans.append(i)
+        else:
+            stack.insert(0, i.right)
+            stack.insert(0, i.val)
+            stack.insert(0, i.left)
+
+    return cur_max
