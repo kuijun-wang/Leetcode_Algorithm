@@ -1,0 +1,11 @@
+class Solution:
+    def __init__(self):
+        self.ans = []
+    def preorder(self, root: 'Node') -> List[int]:
+        if root == None:
+            return 
+        self.ans.append(root.val)
+        if root.children != None or len(root.children) != 0:
+            for i in root.children:
+                self.preorder(i)
+        return self.ans
