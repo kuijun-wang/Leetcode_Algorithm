@@ -1,0 +1,24 @@
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        if len(nums)<=2:
+            return 0
+        
+        def nsub(count):
+            if count < 3:
+                return 0
+            else:
+                return int((count - 1)*(count - 2)/2)
+        
+        total = 0
+        count = 1
+        step = nums[1]-nums[0]
+        for i in range(1, len(nums)):
+            cur_step = nums[i] - nums[i-1]
+            if cur_step == step:
+                count += 1
+            else:
+                total += nsub(count)
+                count = 2
+                step = cur_step
+        total += nsub(count)
+        return total
