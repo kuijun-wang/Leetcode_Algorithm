@@ -1,0 +1,38 @@
+class Solution:
+    def __init__(self):
+        self.ans = 0
+    def diameter(self, root: 'Node') -> int:
+        """
+        :type root: 'Node'
+        :rtype: int
+        """
+        if root == None:
+            return 0
+        if root.children == []:
+            return 0
+        
+        def max2(children_maxdep):
+            if len(children_maxdep)<=2:
+                return children_maxdep
+            L = [float("-inf"), float("-inf")]
+            for i in children_maxdep:
+                if i > L[0]:
+                    L = [i, L[0]]
+                elif i > L[1]:
+                    L = [L[0], i]
+            return L
+        
+        def dfs(root):
+            if root == None:
+                return 0
+            if root.children == []:
+                return 1
+        
+            children_maxdep = [dfs(i) for i in root.children]
+            max_2 = max2(children_maxdep)
+            self.ans = max(self.ans, sum(max_2))
+        
+            return max(children_maxdep) + 1
+        
+        dfs(root)
+        return self.ans
