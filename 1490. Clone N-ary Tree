@@ -1,0 +1,8 @@
+class Solution:
+    def cloneTree(self, root: 'Node') -> 'Node':
+        if root == None:
+            return None
+        clone = Node(root.val, [])
+        if root.children!=[]:
+            clone.children = [self.cloneTree(i) for i in root.children]
+        return clone
