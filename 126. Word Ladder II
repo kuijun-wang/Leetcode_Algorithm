@@ -3,12 +3,11 @@ class Solution:
         if endWord not in wordList:
             return []
         if beginWord == endWord:
-            return 1
+            return [beginWord]
         layer = [[beginWord]]
         num = 2
         word_set = set(wordList)
         past_set = set([beginWord])
-        cur_set = set([beginWord])
         alphabet_list = list(string.ascii_lowercase)
         find = False
         ans = []
