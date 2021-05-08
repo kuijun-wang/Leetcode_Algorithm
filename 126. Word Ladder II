@@ -13,7 +13,7 @@ class Solution:
         ans = []
         while find == False:
             next_layer = []
-            cur_set = []
+            cur_set = set()
             for layer_list in layer:
                 layer_word = layer_list[-1]
                 for j in range(len(layer_word)):
@@ -24,7 +24,7 @@ class Solution:
                                 find = True
                                 ans.append(layer_list+[target])
                             if target not in past_set:
-                                cur_set.append(target)
+                                cur_set.add(target)
                                 next_layer.append(layer_list+[target])
             for i in cur_set:
                 past_set.add(i)
