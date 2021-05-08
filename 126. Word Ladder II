@@ -1,35 +1,49 @@
 class Solution:
-    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-        if endWord not in wordList:
-            return []
-        if beginWord == endWord:
-            return [beginWord]
-        layer = [[beginWord]]
-        num = 2
-        word_set = set(wordList)
-        past_set = set([beginWord])
-        alphabet_list = list(string.ascii_lowercase)
-        find = False
-        ans = []
-        while find == False:
-            next_layer = []
-            cur_set = set()
-            for layer_list in layer:
-                layer_word = layer_list[-1]
-                for j in range(len(layer_word)):
-                    for letter in alphabet_list:
-                        target = layer_word[:j] + letter + layer_word[j+1:]
-                        if target != layer_word and target in word_set:
-                            if target == endWord:
-                                find = True
-                                ans.append(layer_list+[target])
-                            if target not in past_set:
-                                cur_set.add(target)
-                                next_layer.append(layer_list+[target])
-            for i in cur_set:
-                past_set.add(i)
-            layer = next_layer
-            if num > len(wordList):
+    def trap(self, height: List[int]) -> int:
+        
+        def hasConcave(height):
+            if len(height)<=2:
+                return False
+            hasDown = False
+            for i in range(1,len(height)):
+                if hasDown == True and height[i - 1] < height[i]:
+                    return True
+                if height[i - 1] > height[i]:
+                    hasDown = True
+            return False
+        
+        def top2hight(height):
+            if len(height)<=2:
                 return []
-            num += 1
-        return ans
+            if height[0]>height[1]:
+                ans = [0, 1]
+            else:
+                ans = [1, 0]
+            for i in range(2, len(height)):
+                if height[i]>height[ans[0]]:
+                    ans = [i, ans[0]]
+                elif height[i]>height[ans[1]]:
+                    ans = [ans[0], i]
+            return ans
+        
+        def watersum(height):
+            s = 0
+            thre = min(height[0], height[-1])
+            for i in height:
+                if i<thre:
+                    s += thre - i
+            return s
+        
+        if hasConcave(height) == False:
+            return 0
+        
+        top2 = top2hight(height)
+        if top2 == []:
+            return 0
+        
+        top2.sort()
+        left = height[:top2[0]+1]
+        mid = height[top2[0]:top2[1]+1]
+        right = height[top2[1]:]
+        #print(left, mid, right)
+        return self.trap(left) + watersum(mid) + self.trap(right)
