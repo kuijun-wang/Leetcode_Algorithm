@@ -1,0 +1,36 @@
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        if endWord not in wordList:
+            return []
+        if beginWord == endWord:
+            return 1
+        layer = [[beginWord]]
+        num = 2
+        word_set = set(wordList)
+        past_set = set([beginWord])
+        cur_set = set([beginWord])
+        alphabet_list = list(string.ascii_lowercase)
+        find = False
+        ans = []
+        while find == False:
+            next_layer = []
+            cur_set = []
+            for layer_list in layer:
+                layer_word = layer_list[-1]
+                for j in range(len(layer_word)):
+                    for letter in alphabet_list:
+                        target = layer_word[:j] + letter + layer_word[j+1:]
+                        if target != layer_word and target in word_set:
+                            if target == endWord:
+                                find = True
+                                ans.append(layer_list+[target])
+                            if target not in past_set:
+                                cur_set.append(target)
+                                next_layer.append(layer_list+[target])
+            for i in cur_set:
+                past_set.add(i)
+            layer = next_layer
+            if num > len(wordList):
+                return []
+            num += 1
+        return ans
