@@ -1,0 +1,74 @@
+# recursion
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self._integers = []
+        self._idx = -1
+        def flatten_list(nestedList):
+            for i in nestedList:
+                if i.isInteger():
+                    self._integers.append(i.getInteger())
+                else:
+                    flatten_list(i.getList())
+        
+        flatten_list(nestedList)
+    
+    def next(self) -> int:
+        self._idx += 1
+        return self._integers[self._idx]
+    
+    def hasNext(self) -> bool:
+         return self._idx + 1 < len(self._integers)
+ 
+ 
+ # stack
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self._stack = list(reversed(nestedList))
+    
+    def next(self) -> int:
+        # self.make_stack_top_integer()
+        return self._stack.pop().getInteger()
+            
+    
+    def hasNext(self) -> bool:
+        self.make_stack_top_integer()
+        return len(self._stack)>0
+    
+    def make_stack_top_integer(self):
+        while self._stack and self._stack[-1].isInteger() == False:
+            i = self._stack.pop()
+            self._stack.extend(reversed(i.getList()))
+   
+   
+   
+   # two stack
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self._stack = [[nestedList, 0]]
+    
+    def next(self) -> int:
+        cur_list, idx = self._stack[-1][0], self._stack[-1][1]
+        cur = cur_list[idx].getInteger()
+        self._stack[-1][1] += 1
+        return cur
+            
+    
+    def hasNext(self) -> bool:
+        self.make_stack_top_integer()
+        return len(self._stack)>0
+    
+    def make_stack_top_integer(self):
+        while self._stack:
+            cur_list, idx = self._stack[-1][0], self._stack[-1][1]
+            
+            if len(cur_list) == idx:
+                self._stack.pop()
+                continue
+            
+            if cur_list[idx].isInteger():
+                break
+                
+            else:
+                new_list = cur_list[idx].getList()
+                self._stack[-1][1] += 1
+                self._stack.append([new_list,0])
