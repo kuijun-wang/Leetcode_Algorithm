@@ -1,0 +1,15 @@
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        i = len(digits) - 1
+        goal = False
+        while goal == False and i>=0:
+            digits[i] += 1
+            goal = True
+            if digits[i]>=10:
+                digits[i] = 0
+                goal = False
+                i -= 1
+        if goal == False:
+            return [1] + digits
+        return digits
+            
