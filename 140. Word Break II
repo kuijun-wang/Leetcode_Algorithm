@@ -1,0 +1,32 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordSet = set(wordDict)
+        idx_dict = {}
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        
+        for right in range(1, len(s)+1):
+            value = []
+            for word in wordDict:
+                left = right - len(word)
+                if dp[left] and s[left:right] == word:
+                    dp[right] = True
+                    value.append(left)
+            idx_dict[right] = value
+        
+        def getList(left, right, cur_list):
+            cur_list.append(s[left:right])
+            if left == 0:
+                ans.append(" ".join(reversed(cur_list)))
+                cur_list.pop()
+                return
+            for newleft in idx_dict[left]:
+                getList(newleft, left, cur_list)
+            cur_list.pop()
+        
+        ans = []
+        for left in idx_dict[len(s)]:
+            getList(left,len(s),[])
+        
+        return ans
+
