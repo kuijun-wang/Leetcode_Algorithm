@@ -1,0 +1,24 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        left = 0
+        output = ""
+        stack = ['']
+        num_stack = []
+        while left< len(s):
+            if s[left].isdigit():
+                digit = ''
+                while s[left].isdigit():
+                    digit += s[left]
+                    left += 1
+                digit_int = int(digit)
+                stack.append('')
+                num_stack.append(digit_int)
+            elif s[left] == ']':
+                num = num_stack.pop()
+                cur_string = stack.pop()
+                stack[-1] += num * cur_string
+            else:
+                stack[-1] += s[left]
+            left += 1
+            
+        return stack[0]
