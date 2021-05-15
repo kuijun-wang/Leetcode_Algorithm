@@ -1,0 +1,25 @@
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        ans = x
+        if n==0:
+            return 1
+        neg = False
+        if n<0:
+            neg = True
+            n = -n
+            
+        stack = [n]
+        while n > 1:
+            stack.append(n//2)
+            n = n - n//2
+        if n == 1:
+            stack.append(n)
+        num = [0] * len(stack)
+        num[-1] = x
+        for i in range(len(stack)-2, -1, -1):
+            gap = stack[i] - 2*stack[i+1]
+            num[i] = num[i+1]*num[i+1]*(x**gap)
+        ans = num[0]
+        if neg == True:
+            ans = 1/ans
+        return ans
