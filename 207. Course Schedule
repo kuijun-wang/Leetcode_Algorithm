@@ -1,0 +1,34 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        def iscycle(start):
+            if checked[start] == True:
+                return False
+            if start not in prereq:
+                return False
+            if path[start] == True:
+                return True
+            path[start] = True
+            
+            ret = False
+            for i in prereq[start]:
+                if iscycle(i):
+                    ret = True
+                    break
+            path[start] = False
+            checked[start] = True
+            return ret
+            
+        
+        prereq = {}
+        for i in prerequisites:
+            if i[0] in prereq:
+                prereq[i[0]].append(i[1])
+            else:
+                prereq[i[0]] = [i[1]]
+        
+        checked = [False] * numCourses
+        path = [False] * numCourses
+        for i in range(numCourses):
+            if iscycle(i):
+                return False
+        return True
