@@ -1,0 +1,30 @@
+#hash table
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        nodeset = set()
+        while headA:
+            nodeset.add(headA)
+            headA = headA.next
+        
+        while headB:
+            if headB in nodeset:
+                return headB
+            headB = headB.next
+        return None
+
+
+#快慢指针
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        curA = headA
+        curB = headB
+        while curA != curB:
+            if curA == None:
+                curA = headA
+            else:
+                curA = curA.next
+            if curB == None:
+                curB = headB
+            else:
+                curB = curB.next
+        return curA
