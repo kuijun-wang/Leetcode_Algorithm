@@ -1,0 +1,38 @@
+# Iteration
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 == None:
+            return l2
+        if l2 == None:
+            return l1
+        newNode = ListNode(0)
+        curNode = newNode
+        
+        while l1 and l2:
+            if l1.val <= l2.val:
+                curNode.next = ListNode(l1.val, None)
+                l1 = l1.next
+            else:
+                curNode.next = ListNode(l2.val, None)
+                l2 = l2.next
+            curNode = curNode.next
+        if l1!=None:
+            curNode.next = l1
+        else:
+            curNode.next = l2
+        return newNode.next
+
+
+
+# Recursion
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 == None:
+            return l2
+        elif l2 == None:
+            return l1
+        
+        if l1.val<=l2.val:
+            return ListNode(l1.val, self.mergeTwoLists(l1.next, l2))
+        else:
+            return ListNode(l2.val, self.mergeTwoLists(l1, l2.next))
