@@ -1,0 +1,9 @@
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        cur = ListNode(None)
+        nxt = head
+        rev = None
+        while nxt:
+            rev = ListNode(nxt.val, rev)
+            nxt = nxt.next
+        return rev
