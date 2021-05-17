@@ -1,0 +1,36 @@
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        direction = [(0,1), (1,1), (-1,1), (-1,0), (1,0), (-1,-1), (0,-1), (1,-1)]
+        x_max = len(grid) - 1
+        y_max = len(grid[0]) - 1
+        
+        def get_next(x,y):
+            can = []
+            for x_add, y_add in direction:
+                x_new = x + x_add
+                y_new = y + y_add
+                if x_new < 0 or x_new > x_max or y_new < 0 or y_new > y_max:
+                    continue
+                elif grid[x_new][y_new]!=0:
+                    continue
+                can.append([x_new, y_new])
+                grid[x_new][y_new] = 1
+            return can
+        # check initial
+        if grid[0][0]!=0 or grid[x_max][y_max]!=0:
+            return -1
+        
+        stage = []
+        stage.append([0,0])
+        grid[0][0] = 1
+        distance = 1
+        while stage:
+            nextstage = []
+            for x, y in stage:
+                if (x, y) == (x_max, y_max):
+                    return distance
+                nextstage.extend(get_next(x,y))
+            distance += 1
+            stage = nextstage
+        return -1
+        
