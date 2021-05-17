@@ -1,0 +1,18 @@
+# Reverse
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        def ListNode2num(l1):
+            ans = []
+            while l1:
+                ans.append(str(l1.val))
+                l1 = l1.next
+            return int(''.join(ans))
+        
+        total = ListNode2num(l1) + ListNode2num(l2)
+        nums = [i for i in str(total)]
+        i = len(nums) - 1
+        res = None
+        while i>=0:
+            res = ListNode(int(nums[i]), res)
+            i -= 1
+        return res
