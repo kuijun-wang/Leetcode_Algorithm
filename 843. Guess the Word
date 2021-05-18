@@ -1,0 +1,27 @@
+class Solution:
+    def findSecretWord(self, wordlist: List[str], master: 'Master') -> None:
+        def snum(word1, word2):
+            count = 0
+            for i in range(6):
+                if word1[i] == word2[i]:
+                    count += 1
+            return count
+        
+        def findtarget(wordlist):
+            score_dict = {}
+            for i in wordlist:
+                total_score = 0
+                for j in wordlist:
+                    if snum(i,j) == 0:
+                        total_score += 1 
+                score_dict[i] = total_score
+            score_list = [[key, value] for key, value in score_dict.items()]
+            score_list.sort(key = lambda x:x[1])
+            return score_list[0][0]
+        
+        wordlist = set(wordlist)
+        while wordlist:
+            guess = findtarget(wordlist)
+            same = master.guess(guess)
+            #print(guess, same)
+            wordlist = set([i for i in wordlist if snum(i, guess) == same and i != guess])
