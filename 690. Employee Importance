@@ -1,0 +1,18 @@
+class Solution:
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        total = 0
+        e_dict = {}
+        for i in employees:
+            e_dict[i.id] = [i.importance, i.subordinates]
+        
+        visit = set()
+        ans = 0
+        q = deque()
+        q.append(id)
+        while q:
+            cur = q.popleft()
+            if cur not in visit:
+                visit.add(cur)
+                ans += e_dict[cur][0]
+                q.extend(e_dict[cur][1])
+        return ans
