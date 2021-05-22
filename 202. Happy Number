@@ -1,0 +1,16 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        visit = set()
+        while n:
+            new = 0
+            while n>0:
+                new += (n%10)**2
+                n = n//10
+            n = new
+            if n<10:
+                if n not in visit:
+                    visit.add(n)
+                else:
+                    return False
+            if n == 1:
+                return True
