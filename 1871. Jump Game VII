@@ -1,0 +1,20 @@
+from collections import deque 
+class Solution:
+    def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
+        if s[-1] != '0':
+            return False
+        dp = [0] * len(s)
+        dp[0] = 1
+        q = deque([0])
+        right = 1
+        while right < len(s) and q and right - q[0] <= maxJump:
+            #print(right,q)
+            if s[right] == '0' and right - q[0] >= minJump:
+                dp[right] = 1
+                q.append(right)
+                
+            right += 1
+            while q and right - q[0] > maxJump:
+                q.popleft()
+        
+        return dp[-1]
