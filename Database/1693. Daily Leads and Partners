@@ -1,0 +1,11 @@
+with t1 as(
+select distinct date_id, make_name, lead_id from DailySales),
+t2 as(
+select distinct date_id, make_name, partner_id from DailySales),
+t3 as(
+select date_id, make_name,count(lead_id) unique_leads from t1 group by date_id, make_name ),
+t4 as(
+select date_id, make_name,count(partner_id) unique_partners from t2 group by date_id, make_name )
+select *
+from t3 join t4
+using(date_id, make_name)

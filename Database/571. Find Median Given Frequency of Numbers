@@ -1,0 +1,8 @@
+with temp as (
+select number, sum(Frequency)over(order by number)-Frequency+1 as cum_start,sum(Frequency)over(order by number) as cum_end 
+from numbers),
+temp2 as (select number
+from temp 
+where cum_end>=(select max(cum_end) from temp)/2 and cum_start<=(select max(cum_end) from temp)/2+1)
+select avg(number) as median
+from temp2

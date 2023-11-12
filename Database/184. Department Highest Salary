@@ -1,0 +1,5 @@
+with temp(Department,Employee,salary,r)as(
+select department.name as Department, employee.name as Employee, salary, dense_rank()over(partition by DepartmentId order by salary desc) as r
+from department join Employee on Department.Id = Employee.DepartmentId)
+select Department,Employee,salary from temp
+where r=1

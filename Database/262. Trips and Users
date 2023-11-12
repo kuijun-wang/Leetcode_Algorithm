@@ -1,0 +1,14 @@
+with unbann as (
+select Id, Client_Id, Driver_Id, City_Id, Status, Request_at 
+    from trips join users c
+    on c.Users_Id = Client_Id
+    join users d on d.Users_Id = Driver_Id
+    where c.Banned = "NO" and d.Banned = "NO" 
+    and Request_at between '2013-10-01' and '2013-10-03'
+)
+select Day, round(a/aa,2)as "Cancellation Rate" from
+(select Request_at as Day, 
+    count(case when status = "cancelled_by_client" or status = "cancelled_by_driver" then 1 end) as a, 
+    count(*) as aa 
+from unbann
+group by Request_at) as temp

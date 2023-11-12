@@ -1,0 +1,5 @@
+with temp(p1,p2,time) as (
+(select * from calls where from_id < to_id)union all (select to_id, from_id,duration from calls where from_id >= to_id)
+    )
+select p1 person1, p2 person2, count(time)as call_count,sum(time) total_duration from temp
+group by p1, p2

@@ -1,0 +1,8 @@
+with t as(
+select machine_id, process_id, sum((case when activity_type="start" then -timestamp else timestamp end)) processing_time
+from Activity
+group by machine_id, process_id)
+
+select machine_id, round(avg(processing_time),3)processing_time
+from t
+group by machine_id

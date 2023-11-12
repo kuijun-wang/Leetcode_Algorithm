@@ -1,0 +1,4 @@
+select * from
+(select player_id,(case when row_number()over(partition by player_id order by event_date)=1 then device_id end) as device_id
+from Activity)temp
+where device_id is not null

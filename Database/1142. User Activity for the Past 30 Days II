@@ -1,0 +1,6 @@
+select round(COALESCE(AVG(num),0),2)average_sessions_per_user
+from
+(select user_id,count(distinct session_id)as num
+from activity
+where  activity_date>date_add("2019-07-27",interval -30 day)
+group by user_id)temp
