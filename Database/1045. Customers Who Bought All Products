@@ -1,0 +1,7 @@
+select distinct customer_id
+from customer
+where customer_id not in (
+select t1.customer_id
+from (select distinct customer_id from customer) t1, product
+where (t1.customer_id, product.product_key) not in (select * from customer)
+    )

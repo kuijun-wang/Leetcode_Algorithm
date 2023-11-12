@@ -1,0 +1,7 @@
+select Name from
+(select Name,count(candidateid) as c
+from candidate join vote
+on candidate.id = vote.candidateid
+group by CandidateId
+order by c desc) as temp
+limit 1
